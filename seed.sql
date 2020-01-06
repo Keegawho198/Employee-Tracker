@@ -22,7 +22,8 @@ department_id INT NOT NUll,
 PRIMARY KEY(id)
 );
 
-select * from role;  role not working!!!!!! CSV file not showing in result grid
+select * from role;  
+-- role not working!!!!!! CSV file not showing in result grid
 
 CREATE TABLE department(
 id INT NOT NULL,
