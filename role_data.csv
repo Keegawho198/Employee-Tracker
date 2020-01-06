@@ -1,0 +1,11 @@
+id,title,salary,department_id
+1,Account Coordinator,"$65,136.75 ",1
+2,Intern,"$117,518.39 ",2
+3,Sales rep,"$84,685.69 ",3
+4,Engineer,"$109,151.58 ",4
+5,Environmental Tech,"$83,298.57 ",5
+6,Help Desk Operator,"$86,969.33 ",6
+7,Accountant,"$103,901.18 ",7
+8,Design Engineer,"$82,986.25 ",8
+9,Financial Analyst,"$118,772.75 ",9
+10,Professor,"$68,132.94 ",10
