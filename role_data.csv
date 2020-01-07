@@ -1,5 +1,5 @@
 id,title,salary($),department_id
-1,Account Coordinator,60000,1
+1,Manager,60000,1
 2,Intern,70000,2
 3,Sales rep,64000,3
 4,Engineer,80000,4
@@ -8,4 +8,4 @@ id,title,salary($),department_id
 7,Accountant,80000,7
 8,Design Engineer,78000,8
 9,Financial Analyst,69000,9
-10,Professor,77000,10
+10,Office Manager,77000,10
