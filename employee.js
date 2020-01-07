@@ -42,7 +42,7 @@ function begin() {
         viewAll();
       } else if (answer.firstChoice == "Add an Employee") {
         console.log("Add details for employee");
-        // moreThanOnce();
+        add();
       }
       else {
         console.log("U chose to exit");
@@ -69,3 +69,73 @@ function viewAll() {
         });
       // connection.end();
 }
+
+
+function add() {
+  // prompt for info about the item being put up for auction
+  inquirer
+    .prompt([
+      {
+        name: "firstName",
+        type: "input",
+        message: "Enter employee's first name: "
+      },
+      {
+        name: "lastName",
+        type: "input",
+        message: "Enter employee's last name: "
+      },
+      {
+        name: "department_name",
+        type: "input",
+        message: "Enter department name: "
+      },
+      {
+        name: "title",
+        type: "input",
+        message: "Enter title of Employee: "
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "Enter $ salary: ",
+        validate: function(value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
+      }
+    ])
+    .then(function(answer) {
+      // when finished prompting, insert a new item into the db with that info
+      connection.query(
+        "INSERT INTO department SET ?",
+        {
+          department_name: answer.department_name
+        },
+        // "INSERT INTO employee SET ? role_id = LAST_INSERT_ID()", not working
+        "INSERT INTO employee SET ? role_id = LAST_INSERT_ID()",
+        {
+          first_name: answer.firstName,
+          last_name: answer.lastName,
+          
+        },
+        // "INSERT INTO role SET ? , department_id = LAST_INSERT_ID()", this also not working
+        // {
+        //   title: answer.title,
+        //   salary: answer.salary
+        // },
+        function(err) {
+          if (err) throw err;
+          console.log(err);
+          console.log("Employee successfully added!");
+          // re-prompt the user for if they want to bid or post
+          // start();
+        }
+      );
+    });
+}
+
+
+//how to add employee with unique id? can it be done automatically? or does it have to be manual?
