@@ -37,7 +37,7 @@ select * from department;
 
 
 SELECT E.id, E.first_name, E.last_name, 
-D.name, R.title, R.salary
+D.department_name, R.title, R.salary, E.manager_id
   FROM employee E
   JOIN role R ON R.Id = E.role_id
   JOIN department D ON D.id = R.department_id 
