@@ -11,10 +11,10 @@ role_id INT NOT NULL ,
 manager_id INT Null ,
 PRIMARY KEY(id) 
 );
--- INSERT INTO employee SET first_name = "test9", last_name = "test", role_id = LAST_INSERT_ID();
+INSERT INTO employee SET first_name = "test9", last_name = "test", role_id = LAST_INSERT_ID() +1;
 INSERT INTO employee SET first_name = "test9", last_name = "test", role_id = 11;
 
-DELETE FROM employee WHERE id = 14;
+DELETE FROM employee WHERE id = 15;
 
 select * from employee;
 
@@ -36,7 +36,7 @@ PRIMARY KEY(id)
 
 select * from department;
 INSERT INTO department SET department_name = "test";
-DELETE FROM department WHERE id = 18;
+DELETE FROM department WHERE id = 19;
 
 -- SELECT employee.id, employee.first_name, employee.last_name
 -- FROM employee INNER JOIN department ON (employee.id = department.id ) 

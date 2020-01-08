@@ -31,9 +31,9 @@ function begin() {
       name: "firstChoice",
       type: "list",
       message: "What would you like to do?",
-      choices: ["View all employees", 
-      "Add an Employee",
-      "Exit"
+      choices: ["View all employees",
+        "Add an Employee",
+        "Exit"
       ]
     })
     .then(function (answer) {
@@ -55,19 +55,23 @@ function begin() {
 
 function viewAll() {
   console.log("Current Employees");
-      var query = connection.query(
-        //shows details of employees from sql csv files
-        "SELECT E.id, E.first_name, E.last_name, D.department_name, R.title, R.salary, E.manager_id FROM employee E JOIN role R ON R.Id = E.role_id JOIN department D ON D.id = R.department_id ORDER BY E.id",
-        function (err, res) {
-          if (err) throw err;
-          for(var i = 0; i < res.length; i++){
-          // console.log(res[i]);
-          console.table(res[i]);
-        }
-        console.log(query.sql);
-        begin();
-        });
-      // connection.end();
+  var query = connection.query(
+    //shows details of employees from sql csv files
+    "SELECT E.id, E.first_name, E.last_name, D.department_name, R.title, R.salary, E.manager_id FROM employee E JOIN role R ON R.Id = E.role_id JOIN department D ON D.id = R.department_id ORDER BY E.id",
+    function (err, res) {
+      if (err) throw err;
+      for (var i = 0; i < res.length; i++) {
+        // console.log(res[i]);
+        // console.table(['ID', 'Name'], res[i]);
+        // console.table("ID | First Name");
+        // console.table(res[i].id + res[i].first_name);
+        // console.table()
+        console.table(res[i]);
+      }
+      console.log(query.sql);
+      begin();
+    });
+  // connection.end();
 }
 
 
@@ -99,7 +103,7 @@ function add() {
         name: "salary",
         type: "input",
         message: "Enter $ salary: ",
-        validate: function(value) {
+        validate: function (value) {
           if (isNaN(value) === false) {
             return true;
           }
@@ -107,35 +111,54 @@ function add() {
         }
       }
     ])
-    .then(function(answer) {
+    .then(function (answer) {
       // when finished prompting, insert a new item into the db with that info
       connection.query(
         "INSERT INTO department SET ?",
         {
           department_name: answer.department_name
         },
-        // "INSERT INTO employee SET ? role_id = LAST_INSERT_ID()", not working
-        "INSERT INTO employee SET ? role_id = LAST_INSERT_ID()",
-        {
-          first_name: answer.firstName,
-          last_name: answer.lastName,
-          
-        },
-        // "INSERT INTO role SET ? , department_id = LAST_INSERT_ID()", this also not working
-        // {
-        //   title: answer.title,
-        //   salary: answer.salary
+
         // },
-        function(err) {
+        //
+        function (err, dept) {
           if (err) throw err;
-          console.log(err);
-          console.log("Employee successfully added!");
-          // re-prompt the user for if they want to bid or post
+         // console.log(err);
+          // console.log(dept) //dept is response of query
+          console.log("Employee department successfully added!"); //move next query after here. for the unique id use "insertId"
+
           // start();
-        }
-      );
+          connection.query(
+           // "INSERT INTO employee SET ? role_id = LAST_INSERT_ID()", not working
+            "INSERT INTO employee SET ?",
+            {
+              first_name: answer.firstName,
+              last_name: answer.lastName,
+              role_id: dept.insertId,
+            },
+            function (err, emp) {
+              if (err)
+                // console.log("Error while inserting employee");
+                throw err;
+                console.log("Employee successfully added!"); //move next query after here. for the unique id use "insertId"
+                // console.log(emp) 
+              
+                connection.query(
+                "INSERT INTO role SET ?", 
+                {
+                  title: answer.title,
+                  salary: answer.salary,
+                  department_id: emp.insertId
+                },
+                function (err, role){
+                  if(err)
+                  throw err;
+                  console.log("role added successfully");
+                  // console.log(role);
+                }
+                )
+        });
+      });
     });
-}
-
-
-//how to add employee with unique id? can it be done automatically? or does it have to be manual?
+    
+  }
