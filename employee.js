@@ -66,8 +66,11 @@ function viewAll() {
         // console.table("ID | First Name");
         // console.table(res[i].id + res[i].first_name);
         // console.table()
-        console.table(res[i]);
+        // console.table(res[i]);
+
       }
+      console.table(res);
+
       console.log(query.sql);
       begin();
     });
@@ -124,7 +127,7 @@ function add() {
         function (err, dept) {
           if (err) throw err;
          // console.log(err);
-          // console.log(dept) //dept is response of query
+          console.log(dept) //dept is response of query
           console.log("Employee department successfully added!"); //move next query after here. for the unique id use "insertId"
 
           // start();
@@ -161,4 +164,5 @@ function add() {
       });
     });
     
-  }
+  }//end of add() function
+
