@@ -155,8 +155,8 @@ function add() {
                   throw err;
                   console.log("role added successfully");
                   // console.log(role);
-                }
-                )
+                });
+                begin();
         });
       });
     });
