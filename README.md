@@ -1,4 +1,12 @@
 # Employee-Tracker
 
-to choose a name from the node section
-loop through the names through sql query then from that query put that into an array.
+This application will allow a user to add and view all employees.
+
+More functions will be added such as the ability to update and delete employees.
+
+To run this applicaiton you must make sure that you have sql connected to your code and make sure you have created a database with the same name in your code.
+
+in your code make sure you npm install the following : mysql, inquirer.
+
+then to run open your terminal and type node employee.js.
+
